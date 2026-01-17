@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import api from '../../config/api'
 import { toast } from 'react-toastify'
+import { checkAuthSilently } from '../../utils/authCheck'
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -10,23 +11,9 @@ function Navbar() {
   const location = useLocation()
 
   const checkAuthStatus = async () => {
-    try {
-      // Check if user is authenticated by calling /users/me
-      // Use validateStatus and _silent flag to prevent 401 from being logged
-      const response = await api.get('/users/me', {
-        validateStatus: (status) => status < 500, // Don't throw for 4xx, only 5xx
-        _silent: true, // Suppress console errors for this request
-      })
-      
-      if (response.status === 200) {
-        setIsLoggedIn(true)
-      } else {
-        setIsLoggedIn(false)
-      }
-    } catch (error) {
-      // Only catch actual errors (network errors, 5xx, etc.)
-      setIsLoggedIn(false)
-    }
+    // Use silent auth check to avoid console errors for expected 401s
+    const isAuthenticated = await checkAuthSilently()
+    setIsLoggedIn(isAuthenticated)
   }
 
   useEffect(() => {

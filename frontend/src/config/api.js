@@ -1,26 +1,30 @@
 import axios from 'axios'
 
+/**
+ * API Configuration
+ * Creates a configured axios instance with interceptors for authentication and error handling
+ */
+
+// Get API base URL from environment or use proxy path
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
+
 // Create axios instance with base configuration
-// Use relative URL since Vite proxy will handle routing to backend
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Important: Send cookies with requests
+  withCredentials: true, // Send cookies with requests for authentication
+  timeout: 10000, // 10 second timeout
 })
 
-// Store original console.error
-const originalConsoleError = console.error
-
-// Request interceptor to suppress console errors for silent requests
+/**
+ * Request Interceptor
+ * Adds any necessary request modifications before sending
+ */
 api.interceptors.request.use(
   (config) => {
-    // Store original console methods if this is a silent request
-    if (config._silent) {
-      // Temporarily suppress console.error for this request
-      console.error = () => {}
-    }
+    // Add any request modifications here if needed
     return config
   },
   (error) => {
@@ -28,33 +32,35 @@ api.interceptors.request.use(
   }
 )
 
-// Handle response errors - especially auth errors
+/**
+ * Response Interceptor
+ * Handles responses and errors globally
+ */
 api.interceptors.response.use(
   (response) => {
-    // Restore console.error if it was suppressed
-    if (response.config?._silent) {
-      console.error = originalConsoleError
-    }
+    // Return successful responses as-is
     return response
   },
   (error) => {
-    // Restore console.error if it was suppressed
-    if (error.config?._silent) {
-      console.error = originalConsoleError
-    }
-    
-    if (error.response?.status === 401) {
-      // Skip redirect for /users/me endpoint (used for auth status checks)
-      const isAuthCheck = error.config?.url?.includes('/users/me')
-      
-      if (!isAuthCheck) {
-        // Token expired or invalid - cookie will be cleared by backend
-        // Only redirect if not already on login/signup page
-        if (window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
-          window.location.href = '/login'
-        }
+    const { response, config } = error
+
+    // Handle 401 Unauthorized errors
+    if (response?.status === 401) {
+      const isAuthCheck = config?.url?.includes('/users/me')
+      const isAuthPage = ['/login', '/signup'].includes(window.location.pathname)
+
+      // Only redirect if it's not an auth check and not already on auth pages
+      if (!isAuthCheck && !isAuthPage) {
+        window.location.href = '/login'
       }
     }
+
+    // Handle network errors
+    if (!response) {
+      console.error('Network error:', error.message)
+    }
+
+    // Reject the error so components can handle it
     return Promise.reject(error)
   }
 )
