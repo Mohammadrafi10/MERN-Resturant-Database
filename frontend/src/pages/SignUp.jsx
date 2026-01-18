@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Navbar from "../components/core/Navbar";
 import Footer from "../components/core/Footer";
 import api from "../config/api";
+import { setAuthStatus } from "../utils/authCheck";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -69,6 +70,9 @@ function SignUp() {
       });
 
       // Token is now stored in httpOnly cookie automatically
+      // Set auth status in localStorage
+      setAuthStatus(true);
+      
       // Show success notification
       toast.success("Account created successfully! Welcome!");
 

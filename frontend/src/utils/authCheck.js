@@ -1,31 +1,49 @@
 /**
- * Silent authentication check utility
- * Uses fetch API to avoid axios console logging for expected 401 responses
+ * Authentication check utility
+ * Uses localStorage to check authentication status without API calls
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
+const AUTH_KEY = 'isAuthenticated'
 
 /**
- * Silently check if user is authenticated
+ * Check if user is authenticated
  * Returns true if authenticated, false otherwise
- * Does not log 401 errors to console
+ * No API calls - uses localStorage for fast, silent checks
  */
-export const checkAuthSilently = async () => {
+export const checkAuthSilently = () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/users/me`, {
-      method: 'GET',
-      credentials: 'include', // Include cookies
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    return response.status === 200
+    const authStatus = localStorage.getItem(AUTH_KEY)
+    return authStatus === 'true'
   } catch (error) {
-    // Only log actual network errors, not 401s
-    if (error.name !== 'TypeError') {
-      console.error('Auth check error:', error)
-    }
+    // If localStorage is not available, return false
     return false
+  }
+}
+
+/**
+ * Set authentication status in localStorage
+ * Call this after successful login or signup
+ */
+export const setAuthStatus = (isAuthenticated) => {
+  try {
+    if (isAuthenticated) {
+      localStorage.setItem(AUTH_KEY, 'true')
+    } else {
+      localStorage.removeItem(AUTH_KEY)
+    }
+  } catch (error) {
+    console.error('Failed to set auth status:', error)
+  }
+}
+
+/**
+ * Clear authentication status
+ * Call this on logout
+ */
+export const clearAuthStatus = () => {
+  try {
+    localStorage.removeItem(AUTH_KEY)
+  } catch (error) {
+    console.error('Failed to clear auth status:', error)
   }
 }

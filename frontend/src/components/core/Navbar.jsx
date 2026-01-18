@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import api from '../../config/api'
 import { toast } from 'react-toastify'
-import { checkAuthSilently } from '../../utils/authCheck'
+import { checkAuthSilently, clearAuthStatus } from '../../utils/authCheck'
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -10,9 +10,9 @@ function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const checkAuthStatus = async () => {
-    // Use silent auth check to avoid console errors for expected 401s
-    const isAuthenticated = await checkAuthSilently()
+  const checkAuthStatus = () => {
+    // Check auth status from localStorage (no API call)
+    const isAuthenticated = checkAuthSilently()
     setIsLoggedIn(isAuthenticated)
   }
 
@@ -25,11 +25,11 @@ function Navbar() {
     try {
       // Call logout endpoint to blacklist the token and clear cookie
       await api.post('/users/logout')
-      setIsLoggedIn(false)
-      toast.success('Logged out successfully')
-      navigate('/login')
     } catch (error) {
-      // Even if logout API call fails, update state
+      // Continue with logout even if API call fails
+    } finally {
+      // Clear auth status from localStorage
+      clearAuthStatus()
       setIsLoggedIn(false)
       toast.success('Logged out successfully')
       navigate('/login')

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { clearAuthStatus } from '../utils/authCheck'
 
 /**
  * API Configuration
@@ -42,15 +43,17 @@ api.interceptors.response.use(
     return response
   },
   (error) => {
-    const { response, config } = error
+    const { response } = error
 
     // Handle 401 Unauthorized errors
     if (response?.status === 401) {
-      const isAuthCheck = config?.url?.includes('/users/me')
+      // Clear auth status from localStorage when we get a 401
+      clearAuthStatus()
+      
       const isAuthPage = ['/login', '/signup'].includes(window.location.pathname)
 
-      // Only redirect if it's not an auth check and not already on auth pages
-      if (!isAuthCheck && !isAuthPage) {
+      // Only redirect if not already on auth pages
+      if (!isAuthPage) {
         window.location.href = '/login'
       }
     }
