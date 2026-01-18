@@ -68,12 +68,12 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
   }, [onFilterChange])
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 border-2 border-amber-800 mb-8">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-2 border-amber-800 dark:border-amber-600 mb-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-        <h2 className="text-xl font-serif font-bold text-amber-900">
+        <h2 className="text-xl font-serif font-bold text-amber-900 dark:text-amber-200">
           Filter & Search
         </h2>
-        <span className="text-sm text-amber-700 font-serif">
+        <span className="text-sm text-amber-700 dark:text-amber-300 font-serif">
           {recipesCount} recipe{recipesCount !== 1 ? 's' : ''} found
         </span>
       </div>
@@ -132,14 +132,14 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Price Filter */}
         <div>
-          <label htmlFor="priceFilter" className="block text-amber-900 font-serif font-medium mb-2">
+          <label htmlFor="priceFilter" className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2">
             Price Range
           </label>
           <select
             id="priceFilter"
             value={priceFilter}
             onChange={handlePriceFilterChange}
-            className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif"
+            className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700 font-serif"
           >
             <option value="all">All Prices</option>
             <option value="low">Under $10</option>
@@ -172,7 +172,7 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
         {(searchTerm || priceFilter !== 'all' || categoryFilter !== 'all' || sortBy !== 'newest') && (
           <button
             onClick={clearFilters}
-            className="px-4 py-2 bg-amber-200 text-amber-900 font-serif font-medium rounded-md hover:bg-amber-300 transition-colors"
+            className="px-4 py-2 bg-amber-200 dark:bg-amber-700 text-amber-900 dark:text-amber-100 font-serif font-medium rounded-md hover:bg-amber-300 dark:hover:bg-amber-600 transition-colors"
           >
             Clear Filters
           </button>

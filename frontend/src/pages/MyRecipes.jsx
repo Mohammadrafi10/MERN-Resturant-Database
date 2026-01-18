@@ -200,7 +200,7 @@ function MyRecipes() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-amber-50">
+      <main className="min-h-screen bg-amber-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <PageHeader
             title="My Recipes"
@@ -224,8 +224,8 @@ function MyRecipes() {
           </div>
 
           {showForm && (
-            <div className="mb-12 bg-white rounded-lg shadow-lg p-8 border-2 border-amber-800">
-              <h2 className="text-2xl font-serif font-bold text-amber-900 mb-6">
+            <div className="mb-12 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border-2 border-amber-800 dark:border-amber-600">
+              <h2 className="text-2xl font-serif font-bold text-amber-900 dark:text-amber-200 mb-6">
                 {editingRecipe ? 'Edit Recipe' : 'Create New Recipe'}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -238,7 +238,7 @@ function MyRecipes() {
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif"
+                    className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700 font-serif"
                     placeholder="Recipe title"
                     required
                   />
@@ -276,7 +276,7 @@ function MyRecipes() {
                         <button
                           type="button"
                           onClick={() => removeIngredient(index)}
-                          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                          className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-md hover:bg-red-700 dark:hover:bg-red-800 transition-colors"
                         >
                           Remove
                         </button>
@@ -286,7 +286,7 @@ function MyRecipes() {
                   <button
                     type="button"
                     onClick={addIngredient}
-                    className="mt-2 px-4 py-2 bg-amber-200 text-amber-900 rounded-md hover:bg-amber-300 transition-colors font-serif"
+                    className="mt-2 px-4 py-2 bg-amber-200 dark:bg-amber-700 text-amber-900 dark:text-amber-100 rounded-md hover:bg-amber-300 dark:hover:bg-amber-600 transition-colors font-serif"
                   >
                     + Add Ingredient
                   </button>
@@ -303,7 +303,7 @@ function MyRecipes() {
                     onChange={handleInputChange}
                     step="0.01"
                     min="0"
-                    className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif"
+                    className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700 font-serif"
                     placeholder="0.00"
                     required
                   />
@@ -317,7 +317,7 @@ function MyRecipes() {
                     name="category"
                     value={formData.category}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif"
+                    className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700 font-serif"
                     required
                   >
                     <option value="main">Main</option>
@@ -335,14 +335,14 @@ function MyRecipes() {
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif"
+                    className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700 font-serif"
                   />
                   {imagePreview && (
                     <div className="mt-4">
                       <img
                         src={imagePreview}
                         alt="Preview"
-                        className="max-w-xs h-48 object-cover rounded-md border-2 border-amber-800"
+                        className="max-w-xs h-48 object-cover rounded-md border-2 border-amber-800 dark:border-amber-600"
                       />
                     </div>
                   )}
@@ -352,7 +352,7 @@ function MyRecipes() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="bg-amber-800 text-amber-50 font-serif font-medium py-3 px-6 rounded-md hover:bg-amber-900 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-amber-800 dark:bg-amber-600 text-amber-50 dark:text-amber-100 font-serif font-medium py-3 px-6 rounded-md hover:bg-amber-900 dark:hover:bg-amber-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {submitting ? 'Saving...' : editingRecipe ? 'Update Recipe' : 'Create Recipe'}
                   </button>
@@ -371,15 +371,15 @@ function MyRecipes() {
           {/* Recipes Grid */}
           {loading ? (
             <div className="text-center py-12">
-              <p className="text-amber-900 font-serif text-lg">Loading your recipes...</p>
+              <p className="text-amber-900 dark:text-amber-200 font-serif text-lg">Loading your recipes...</p>
             </div>
           ) : recipes.length === 0 ? (
             <div className="text-center py-12">
-              <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8 border-2 border-amber-800">
-                <p className="text-amber-900 font-serif text-lg mb-4">
+              <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border-2 border-amber-800 dark:border-amber-600">
+                <p className="text-amber-900 dark:text-amber-200 font-serif text-lg mb-4">
                   You haven't created any recipes yet.
                 </p>
-                <p className="text-amber-800 font-serif italic">
+                <p className="text-amber-800 dark:text-amber-300 font-serif italic">
                   Start creating your first recipe!
                 </p>
               </div>
@@ -389,7 +389,7 @@ function MyRecipes() {
               {recipes.map((recipe) => (
                 <div
                   key={recipe._id}
-                  className="bg-white rounded-lg shadow-lg p-6 border-2 border-amber-800 hover:shadow-xl transition-shadow duration-300"
+                  className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border-2 border-amber-800 dark:border-amber-600 hover:shadow-xl transition-shadow duration-300"
                 >
                   {recipe.imageUrl && (
                     <img
@@ -398,50 +398,50 @@ function MyRecipes() {
                       className="w-full h-48 object-cover rounded-md mb-4"
                     />
                   )}
-                  <h3 className="text-2xl font-serif font-bold text-amber-900 mb-3">
+                  <h3 className="text-2xl font-serif font-bold text-amber-900 dark:text-amber-200 mb-3">
                     {recipe.title}
                   </h3>
-                  <p className="text-amber-800 font-serif mb-4 line-clamp-3">
+                  <p className="text-amber-800 dark:text-amber-300 font-serif mb-4 line-clamp-3">
                     {recipe.description}
                   </p>
                   <div className="mb-4">
-                    <h4 className="font-serif font-semibold text-amber-900 mb-2">
+                    <h4 className="font-serif font-semibold text-amber-900 dark:text-amber-200 mb-2">
                       Ingredients:
                     </h4>
-                    <ul className="list-disc list-inside text-amber-800 font-serif text-sm space-y-1">
+                    <ul className="list-disc list-inside text-amber-800 dark:text-amber-300 font-serif text-sm space-y-1">
                       {recipe.ingredients?.slice(0, 3).map((ingredient, idx) => (
                         <li key={idx}>{ingredient}</li>
                       ))}
                       {recipe.ingredients?.length > 3 && (
-                        <li className="text-amber-700 italic">
+                        <li className="text-amber-700 dark:text-amber-400 italic">
                           +{recipe.ingredients.length - 3} more
                         </li>
                       )}
                     </ul>
                   </div>
                   <div className="mb-4">
-                    <span className="inline-block px-3 py-1 bg-amber-200 text-amber-900 font-serif font-medium rounded-full text-sm capitalize">
+                    <span className="inline-block px-3 py-1 bg-amber-200 dark:bg-amber-700 text-amber-900 dark:text-amber-100 font-serif font-medium rounded-full text-sm capitalize">
                       {recipe.category || 'main'}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-amber-200">
-                    <span className="text-xl font-serif font-bold text-amber-900">
+                  <div className="flex items-center justify-between pt-4 border-t border-amber-200 dark:border-amber-700">
+                    <span className="text-xl font-serif font-bold text-amber-900 dark:text-amber-200">
                       ${recipe.price?.toFixed(2)}
                     </span>
-                    <span className="text-xs text-amber-700 font-serif italic">
+                    <span className="text-xs text-amber-700 dark:text-amber-400 font-serif italic">
                       {new Date(recipe.createdAt).toLocaleDateString()}
                     </span>
                   </div>
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => handleEdit(recipe)}
-                      className="flex-1 bg-amber-600 text-amber-50 font-serif font-medium py-2 px-4 rounded-md hover:bg-amber-700 transition-colors"
+                      className="flex-1 bg-amber-600 dark:bg-amber-700 text-amber-50 dark:text-amber-100 font-serif font-medium py-2 px-4 rounded-md hover:bg-amber-700 dark:hover:bg-amber-600 transition-colors"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => setShowDeleteConfirm(recipe._id)}
-                      className="flex-1 bg-red-600 text-white font-serif font-medium py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
+                      className="flex-1 bg-red-600 dark:bg-red-700 text-white font-serif font-medium py-2 px-4 rounded-md hover:bg-red-700 dark:hover:bg-red-800 transition-colors"
                     >
                       Delete
                     </button>
@@ -455,24 +455,24 @@ function MyRecipes() {
 
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4 border-2 border-amber-800">
-            <h3 className="text-2xl font-serif font-bold text-amber-900 mb-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 max-w-md w-full mx-4 border-2 border-amber-800 dark:border-amber-600">
+            <h3 className="text-2xl font-serif font-bold text-amber-900 dark:text-amber-200 mb-4">
               Confirm Delete
             </h3>
-            <p className="text-amber-800 font-serif mb-6">
+            <p className="text-amber-800 dark:text-amber-300 font-serif mb-6">
               Are you sure you want to delete this recipe? This action cannot be undone.
             </p>
             <div className="flex gap-4">
               <button
                 onClick={handleDelete}
-                className="flex-1 bg-red-600 text-white font-serif font-medium py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
+                className="flex-1 bg-red-600 dark:bg-red-700 text-white font-serif font-medium py-2 px-4 rounded-md hover:bg-red-700 dark:hover:bg-red-800 transition-colors"
               >
                 Delete
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(null)}
-                className="flex-1 bg-gray-200 text-gray-800 font-serif font-medium py-2 px-4 rounded-md hover:bg-gray-300 transition-colors"
+                className="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-serif font-medium py-2 px-4 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
               >
                 Cancel
               </button>

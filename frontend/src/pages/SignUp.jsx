@@ -90,36 +90,36 @@ function SignUp() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-amber-50">
+      <main className="min-h-screen bg-amber-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-amber-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-amber-900 dark:text-amber-200 mb-4">
               Sign Up
             </h1>
             <div className="flex items-center justify-center space-x-2 mb-6">
-              <div className="w-12 h-0.5 bg-amber-800"></div>
-              <span className="text-amber-800 text-2xl">✦</span>
-              <div className="w-12 h-0.5 bg-amber-800"></div>
+              <div className="w-12 h-0.5 bg-amber-800 dark:bg-amber-600"></div>
+              <span className="text-amber-800 dark:text-amber-400 text-2xl">✦</span>
+              <div className="w-12 h-0.5 bg-amber-800 dark:bg-amber-600"></div>
             </div>
-            <p className="text-lg text-amber-900 font-serif italic">
+            <p className="text-lg text-amber-900 dark:text-amber-200 font-serif italic">
               Join our restaurant community
             </p>
           </div>
 
           <div className="max-w-md mx-auto">
             {error && (
-              <div className="mb-4 p-4 bg-red-100 border-2 border-red-800 rounded-md">
-                <p className="text-red-900 font-serif text-sm">{error}</p>
+              <div className="mb-4 p-4 bg-red-100 dark:bg-red-900/30 border-2 border-red-800 dark:border-red-600 rounded-md">
+                <p className="text-red-900 dark:text-red-200 font-serif text-sm">{error}</p>
               </div>
             )}
             <form
               onSubmit={handleSubmit}
-              className="bg-white rounded-lg shadow-lg p-8 border-2 border-amber-800"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border-2 border-amber-800 dark:border-amber-600"
             >
               <div className="mb-6">
                 <label
                   htmlFor="email"
-                  className="block text-amber-900 font-serif font-medium mb-2"
+                  className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2"
                 >
                   Email
                 </label>
@@ -129,7 +129,7 @@ function SignUp() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900"
+                  className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700"
                   placeholder="Enter your email"
                   required
                 />
@@ -138,7 +138,7 @@ function SignUp() {
               <div className="mb-6">
                 <label
                   htmlFor="password"
-                  className="block text-amber-900 font-serif font-medium mb-2"
+                  className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2"
                 >
                   Password
                 </label>
@@ -148,7 +148,7 @@ function SignUp() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900"
+                  className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700"
                   placeholder="Enter your password"
                   required
                 />
@@ -157,7 +157,7 @@ function SignUp() {
               <div className="mb-6">
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-amber-900 font-serif font-medium mb-2"
+                  className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2"
                 >
                   Confirm Password
                 </label>
@@ -167,7 +167,7 @@ function SignUp() {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900"
+                  className="w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700"
                   placeholder="Confirm your password"
                   required
                 />
@@ -176,7 +176,7 @@ function SignUp() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-amber-800 text-amber-50 font-serif font-medium py-3 px-6 rounded-md hover:bg-amber-900 transition-colors duration-300 mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-amber-800 dark:bg-amber-600 text-amber-50 dark:text-amber-100 font-serif font-medium py-3 px-6 rounded-md hover:bg-amber-900 dark:hover:bg-amber-700 transition-colors duration-300 mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Creating account..." : "Sign Up"}
               </button>
@@ -185,7 +185,7 @@ function SignUp() {
             <div className="mt-6 text-center">
               <button
                 onClick={() => navigate("/login")}
-                className="text-amber-900 font-serif font-medium hover:text-amber-800 transition-colors duration-300 underline"
+                className="text-amber-900 dark:text-amber-200 font-serif font-medium hover:text-amber-800 dark:hover:text-amber-300 transition-colors duration-300 underline"
               >
                 Already have an account? Login
               </button>

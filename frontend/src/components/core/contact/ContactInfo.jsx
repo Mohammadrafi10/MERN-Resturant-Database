@@ -14,11 +14,11 @@ function ContactInfo() {
   const { address, phone, email, hours } = CONTACT_INFO
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-8 border-2 border-amber-800">
-      <h2 className="text-2xl font-serif font-bold text-amber-900 mb-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border-2 border-amber-800 dark:border-amber-600">
+      <h2 className="text-2xl font-serif font-bold text-amber-900 dark:text-amber-200 mb-6">
         Get in Touch
       </h2>
-      <p className="text-amber-900 font-serif mb-6">{DESCRIPTION}</p>
+      <p className="text-amber-900 dark:text-amber-200 font-serif mb-6">{DESCRIPTION}</p>
 
       <div className="space-y-4">
         <ContactInfoItem icon={<IconAddress />} label={address.label}>

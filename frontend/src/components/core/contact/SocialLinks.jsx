@@ -17,20 +17,20 @@ const DESCRIPTION =
 
 function SocialLinks() {
   return (
-    <div className="bg-amber-100 rounded-lg shadow-md p-6 border-2 border-amber-800">
-      <h3 className="text-xl font-serif font-bold text-amber-900 mb-3">
+    <div className="bg-amber-100 dark:bg-gray-800 rounded-lg shadow-md p-6 border-2 border-amber-800 dark:border-amber-600">
+      <h3 className="text-xl font-serif font-bold text-amber-900 dark:text-amber-200 mb-3">
         Follow Us
       </h3>
-      <p className="text-amber-800 font-serif mb-4">{DESCRIPTION}</p>
+      <p className="text-amber-800 dark:text-amber-300 font-serif mb-4">{DESCRIPTION}</p>
       <div className="flex space-x-4">
         {SOCIAL_LINKS.map(({ name, href, ariaLabel }) => (
           <a
             key={name}
             href={href}
-            className="w-10 h-10 bg-amber-800 rounded-full flex items-center justify-center hover:bg-amber-900 transition-colors"
+            className="w-10 h-10 bg-amber-800 dark:bg-amber-600 rounded-full flex items-center justify-center hover:bg-amber-900 dark:hover:bg-amber-700 transition-colors"
             aria-label={ariaLabel}
           >
-            <svg className="w-5 h-5 text-amber-50" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-amber-50 dark:text-amber-100" fill="currentColor" viewBox="0 0 24 24">
               {ICONS[name]}
             </svg>
           </a>

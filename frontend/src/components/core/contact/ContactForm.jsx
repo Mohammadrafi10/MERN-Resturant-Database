@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 }
 
 const INPUT_CLASS =
-  'w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif'
+  'w-full px-4 py-2 border-2 border-amber-800 dark:border-amber-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 dark:focus:ring-amber-600 focus:border-transparent text-amber-900 dark:text-amber-100 bg-white dark:bg-gray-700 font-serif'
 
 /**
  * Contact form with controlled inputs.
@@ -45,15 +45,15 @@ function ContactForm({ onSubmit }) {
   )
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-8 border-2 border-amber-800">
-      <h2 className="text-2xl font-serif font-bold text-amber-900 mb-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 border-2 border-amber-800 dark:border-amber-600">
+      <h2 className="text-2xl font-serif font-bold text-amber-900 dark:text-amber-200 mb-6">
         Send us a Message
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label
             htmlFor="contact-name"
-            className="block text-amber-900 font-serif font-medium mb-2"
+            className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2"
           >
             Name
           </label>
@@ -72,7 +72,7 @@ function ContactForm({ onSubmit }) {
         <div>
           <label
             htmlFor="contact-email"
-            className="block text-amber-900 font-serif font-medium mb-2"
+            className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2"
           >
             Email
           </label>
@@ -91,7 +91,7 @@ function ContactForm({ onSubmit }) {
         <div>
           <label
             htmlFor="contact-subject"
-            className="block text-amber-900 font-serif font-medium mb-2"
+            className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2"
           >
             Subject
           </label>
@@ -110,7 +110,7 @@ function ContactForm({ onSubmit }) {
         <div>
           <label
             htmlFor="contact-message"
-            className="block text-amber-900 font-serif font-medium mb-2"
+            className="block text-amber-900 dark:text-amber-200 font-serif font-medium mb-2"
           >
             Message
           </label>
@@ -129,7 +129,7 @@ function ContactForm({ onSubmit }) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-amber-800 text-amber-50 font-serif font-medium py-3 px-6 rounded-md hover:bg-amber-900 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-amber-800 dark:bg-amber-600 text-amber-50 dark:text-amber-100 font-serif font-medium py-3 px-6 rounded-md hover:bg-amber-900 dark:hover:bg-amber-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Sending...' : 'Send Message'}
         </button>
