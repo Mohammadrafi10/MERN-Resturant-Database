@@ -18,6 +18,7 @@ function MyRecipes() {
     ingredients: [''],
     price: '',
     imageUrl: '',
+    category: 'main',
   })
   const [imageFile, setImageFile] = useState(null)
   const [imagePreview, setImagePreview] = useState('')
@@ -98,6 +99,7 @@ function MyRecipes() {
       ingredients: [''],
       price: '',
       imageUrl: '',
+      category: 'main',
     })
     setImageFile(null)
     setImagePreview('')
@@ -135,6 +137,7 @@ function MyRecipes() {
         ingredients: validIngredients,
         price: parseFloat(formData.price),
         imageUrl: formData.imageUrl,
+        category: formData.category,
       }
 
       if (editingRecipe) {
@@ -169,6 +172,7 @@ function MyRecipes() {
         : [''],
       price: recipe.price?.toString() || '',
       imageUrl: recipe.imageUrl || '',
+      category: recipe.category || 'main',
     })
     setImagePreview(recipe.imageUrl || '')
     setImageFile(null)
@@ -307,6 +311,24 @@ function MyRecipes() {
 
                 <div>
                   <label className="block text-amber-900 font-serif font-medium mb-2">
+                    Category *
+                  </label>
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif"
+                    required
+                  >
+                    <option value="main">Main</option>
+                    <option value="sweet">Sweet</option>
+                    <option value="ice cream">Ice Cream</option>
+                    <option value="dessert">Dessert</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-amber-900 font-serif font-medium mb-2">
                     Image
                   </label>
                   <input
@@ -396,6 +418,11 @@ function MyRecipes() {
                         </li>
                       )}
                     </ul>
+                  </div>
+                  <div className="mb-4">
+                    <span className="inline-block px-3 py-1 bg-amber-200 text-amber-900 font-serif font-medium rounded-full text-sm capitalize">
+                      {recipe.category || 'main'}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between pt-4 border-t border-amber-200">
                     <span className="text-xl font-serif font-bold text-amber-900">

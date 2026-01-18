@@ -7,6 +7,7 @@ import { useState, useCallback } from 'react'
 function RecipeFilter({ onFilterChange, recipesCount }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [priceFilter, setPriceFilter] = useState('all') // 'all', 'low', 'medium', 'high'
+  const [categoryFilter, setCategoryFilter] = useState('all') // 'all', 'sweet', 'main', 'ice cream', 'dessert'
   const [sortBy, setSortBy] = useState('newest') // 'newest', 'oldest', 'price-low', 'price-high'
 
   const handleSearchChange = useCallback((e) => {
@@ -15,9 +16,10 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
     onFilterChange({
       searchTerm: value,
       priceFilter,
+      categoryFilter,
       sortBy,
     })
-  }, [priceFilter, sortBy, onFilterChange])
+  }, [priceFilter, categoryFilter, sortBy, onFilterChange])
 
   const handlePriceFilterChange = useCallback((e) => {
     const value = e.target.value
@@ -25,9 +27,21 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
     onFilterChange({
       searchTerm,
       priceFilter: value,
+      categoryFilter,
       sortBy,
     })
-  }, [searchTerm, sortBy, onFilterChange])
+  }, [searchTerm, categoryFilter, sortBy, onFilterChange])
+
+  const handleCategoryFilterChange = useCallback((e) => {
+    const value = e.target.value
+    setCategoryFilter(value)
+    onFilterChange({
+      searchTerm,
+      priceFilter,
+      categoryFilter: value,
+      sortBy,
+    })
+  }, [searchTerm, priceFilter, sortBy, onFilterChange])
 
   const handleSortChange = useCallback((e) => {
     const value = e.target.value
@@ -35,17 +49,20 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
     onFilterChange({
       searchTerm,
       priceFilter,
+      categoryFilter,
       sortBy: value,
     })
-  }, [searchTerm, priceFilter, onFilterChange])
+  }, [searchTerm, priceFilter, categoryFilter, onFilterChange])
 
   const clearFilters = useCallback(() => {
     setSearchTerm('')
     setPriceFilter('all')
+    setCategoryFilter('all')
     setSortBy('newest')
     onFilterChange({
       searchTerm: '',
       priceFilter: 'all',
+      categoryFilter: 'all',
       sortBy: 'newest',
     })
   }, [onFilterChange])
@@ -61,9 +78,9 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         {/* Search Input */}
-        <div className="md:col-span-2">
+        <div>
           <label htmlFor="search" className="block text-amber-900 font-serif font-medium mb-2">
             Search Recipes
           </label>
@@ -92,6 +109,27 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
           </div>
         </div>
 
+        {/* Category Filter */}
+        <div>
+          <label htmlFor="categoryFilter" className="block text-amber-900 font-serif font-medium mb-2">
+            Category
+          </label>
+          <select
+            id="categoryFilter"
+            value={categoryFilter}
+            onChange={handleCategoryFilterChange}
+            className="w-full px-4 py-2 border-2 border-amber-800 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-800 focus:border-transparent text-amber-900 font-serif"
+          >
+            <option value="all">All Categories</option>
+            <option value="main">Main</option>
+            <option value="sweet">Sweet</option>
+            <option value="ice cream">Ice Cream</option>
+            <option value="dessert">Dessert</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Price Filter */}
         <div>
           <label htmlFor="priceFilter" className="block text-amber-900 font-serif font-medium mb-2">
@@ -131,7 +169,7 @@ function RecipeFilter({ onFilterChange, recipesCount }) {
         </div>
 
         {/* Clear Filters Button */}
-        {(searchTerm || priceFilter !== 'all' || sortBy !== 'newest') && (
+        {(searchTerm || priceFilter !== 'all' || categoryFilter !== 'all' || sortBy !== 'newest') && (
           <button
             onClick={clearFilters}
             className="px-4 py-2 bg-amber-200 text-amber-900 font-serif font-medium rounded-md hover:bg-amber-300 transition-colors"

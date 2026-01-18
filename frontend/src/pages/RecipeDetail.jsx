@@ -103,6 +103,11 @@ function RecipeDetail() {
             )}
 
             <div className="mb-6">
+              <div className="mb-4">
+                <span className="inline-block px-4 py-2 bg-amber-200 text-amber-900 font-serif font-medium rounded-full text-base capitalize">
+                  {recipe.category || 'main'}
+                </span>
+              </div>
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-amber-900 mb-4">
                 {recipe.title}
               </h1>

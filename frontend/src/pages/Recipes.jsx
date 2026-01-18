@@ -13,6 +13,7 @@ function Recipes() {
   const [filters, setFilters] = useState({
     searchTerm: '',
     priceFilter: 'all',
+    categoryFilter: 'all',
     sortBy: 'newest',
   })
 
@@ -44,6 +45,13 @@ function Recipes() {
           recipe.description?.toLowerCase().includes(searchLower) ||
           recipe.ingredients?.some((ing) => ing.toLowerCase().includes(searchLower))
       )
+    }
+
+    // Apply category filter
+    if (filters.categoryFilter !== 'all') {
+      filtered = filtered.filter((recipe) => {
+        return recipe.category === filters.categoryFilter
+      })
     }
 
     // Apply price filter
@@ -146,6 +154,11 @@ function Recipes() {
                   <p className="text-amber-800 font-serif mb-4 line-clamp-3">
                     {recipe.description}
                   </p>
+                  <div className="mb-4">
+                    <span className="inline-block px-3 py-1 bg-amber-200 text-amber-900 font-serif font-medium rounded-full text-sm capitalize mb-2">
+                      {recipe.category || 'main'}
+                    </span>
+                  </div>
                   <div className="mb-4">
                     <h4 className="font-serif font-semibold text-amber-900 mb-2">
                       Ingredients:

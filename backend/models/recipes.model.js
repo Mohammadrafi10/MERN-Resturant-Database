@@ -28,6 +28,12 @@ const recipeSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    category: {
+      type: String,
+      enum: ['sweet', 'main', 'ice cream', 'dessert'],
+      required: [true, "Category is required"],
+      default: 'main',
+    },
   },
   { timestamps: true }
 );

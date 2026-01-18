@@ -2,13 +2,14 @@ const Recipe = require("../models/recipes.model");
 
 const createRecipe = async (req, res) => {
   try {
-    const { title, description, ingredients, price, imageUrl } = req.body;
+    const { title, description, ingredients, price, imageUrl, category } = req.body;
     const recipe = await Recipe.create({
       title,
       description,
       ingredients,
       price,
       imageUrl,
+      category: category || 'main',
       userId: req.user.userId,
     });
     res.status(201).json({ message: "Recipe created successfully", recipe });
@@ -21,7 +22,9 @@ const createRecipe = async (req, res) => {
 
 const getRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const { category } = req.query;
+    const query = category ? { category } : {};
+    const recipes = await Recipe.find(query);
     res.status(200).json({ message: "Recipes fetched successfully", recipes });
   } catch (error) {
     res
@@ -59,7 +62,7 @@ const getRecipeById = async (req, res) => {
 const updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, ingredients, price, imageUrl } = req.body;
+    const { title, description, ingredients, price, imageUrl, category } = req.body;
 
     const recipe = await Recipe.findById(id);
     if (!recipe) {
@@ -71,9 +74,14 @@ const updateRecipe = async (req, res) => {
       return res.status(403).json({ message: "Unauthorized - You can only update your own recipes" });
     }
 
+    const updateData = { title, description, ingredients, price, imageUrl };
+    if (category) {
+      updateData.category = category;
+    }
+
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       id,
-      { title, description, ingredients, price, imageUrl },
+      updateData,
       { new: true, runValidators: true }
     );
 
