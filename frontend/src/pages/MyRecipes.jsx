@@ -66,7 +66,7 @@ function MyRecipes() {
       reader.onloadend = () => {
         const base64String = reader.result
         setImagePreview(base64String)
-        setFormData({ ...formData, imageUrl: base64String })
+        setFormData((prev) => ({ ...prev, imageUrl: base64String }))
       }
       reader.readAsDataURL(file)
     }
@@ -74,22 +74,29 @@ function MyRecipes() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleIngredientChange = (index, value) => {
-    const newIngredients = [...formData.ingredients]
-    newIngredients[index] = value
-    setFormData({ ...formData, ingredients: newIngredients })
+    setFormData((prev) => {
+      const newIngredients = [...prev.ingredients]
+      newIngredients[index] = value
+      return { ...prev, ingredients: newIngredients }
+    })
   }
 
   const addIngredient = () => {
-    setFormData({ ...formData, ingredients: [...formData.ingredients, ''] })
+    setFormData((prev) => ({
+      ...prev,
+      ingredients: [...prev.ingredients, ''],
+    }))
   }
 
   const removeIngredient = (index) => {
-    const newIngredients = formData.ingredients.filter((_, i) => i !== index)
-    setFormData({ ...formData, ingredients: newIngredients })
+    setFormData((prev) => ({
+      ...prev,
+      ingredients: prev.ingredients.filter((_, i) => i !== index),
+    }))
   }
 
   const resetForm = () => {
@@ -129,6 +136,12 @@ function MyRecipes() {
       return
     }
 
+    const imageUrl = imagePreview || formData.imageUrl
+    if (imageFile && !imageUrl) {
+      toast.error('Image is still loading. Please wait a moment and try again.')
+      return
+    }
+
     try {
       setSubmitting(true)
       const payload = {
@@ -136,7 +149,7 @@ function MyRecipes() {
         description: formData.description.trim(),
         ingredients: validIngredients,
         price: parseFloat(formData.price),
-        imageUrl: formData.imageUrl,
+        imageUrl,
         category: formData.category,
       }
 
